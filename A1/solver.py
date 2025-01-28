@@ -26,8 +26,10 @@ class Node:
          - self includes node in self.neighbors
          - node includes self in node.neighbors (undirected)
         """
-        # TODO: Implement adding a neighbor in an undirected manner
-        pass
+        if node not in self.neighbors:
+            self.neighbors.append(node)
+        if self not in node.neighbors:
+           node.neighbors.append(self)
 
     def __repr__(self):
         return f"Node({self.value})"
@@ -57,10 +59,25 @@ def parse_maze_to_graph(maze):
     # 2) Link each node with valid neighbors in four directions (undirected)
     # 3) Identify start_node (if (0,0) is open) and goal_node (if (rows-1, cols-1) is open)
 
-    # TODO: Implement the logic to build nodes and link neighbors
+    for column in maze in range[cols]:
+        for row in maze in range[rows]:
+            if maze[r][c] == 0:
+                node1 = Node[r][c]
+                nodes_dict[(r,c)] = Node(r, c)
+        for node in nodes_dict:
+            r, c = node.value
+        positions = [(r-1, c),
+                    (r, c-1),
+                    (r+1, c),
+                     (r, c+1)]
+        for pos in positions:
+            neighbor = nodes_dict(pos)
+            if neighbor:
+                node.add_neighbor(neighbor)
 
-    start_node = None
-    goal_node = None
+
+    start_node = nodes_dict.get(0,0)
+    goal_node = nodes_dict.get(rows-1, cols-1)
 
     # TODO: Assign start_node and goal_node if they exist in nodes_dict
 
@@ -82,7 +99,22 @@ def bfs(start_node, goal_node):
       3. Also track parent_map to reconstruct the path once goal_node is reached.
     """
     # TODO: Implement BFS
-    return None
+    que = deque()
+    queue.append(start_node)
+
+    visited = []
+    visited.append(start_node)
+
+    parent_map = {}
+    parent_map[start_node] = None
+
+    while que is not None:
+        current_node = que.popleft()
+        if current_node is goal_node:
+            reconstruct_path
+
+
+
 
 
 ###############################################################################
@@ -186,7 +218,7 @@ def reconstruct_path(end_node, parent_map):
       2. Collect node.value, reverse the list, return it.
     """
     # TODO: Implement path reconstruction
-    return None
+    
 
 
 ###############################################################################
