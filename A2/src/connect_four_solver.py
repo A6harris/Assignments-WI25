@@ -1,6 +1,7 @@
 import math
 import random
 import numpy as np
+from pyparsing import col
 
 # Board dimensions for Connect Four
 ROW_COUNT = 6
@@ -15,7 +16,8 @@ def create_board():
         A 2D numpy array of shape (ROW_COUNT, COLUMN_COUNT) filled with zeros (float).
     """
     # TODO: implement
-    pass
+    board = np.zeros((ROW_COUNT, COLUMN_COUNT))
+    return board
 
 
 def drop_piece(board, row, col, piece):
@@ -32,8 +34,9 @@ def drop_piece(board, row, col, piece):
     None. The 'board' is modified in-place. Do NOT return a new board!
     """
     # TODO: implement
-    pass
-
+    board[row][col] = piece
+    
+    
 
 def is_valid_location(board, col):
     """
@@ -47,8 +50,7 @@ def is_valid_location(board, col):
     bool: True if it's valid to drop a piece in this column, False otherwise.
     """
     # TODO: implement
-    pass
-
+    return board[5][col] == 0
 
 def get_next_open_row(board, col):
     """
@@ -62,8 +64,12 @@ def get_next_open_row(board, col):
     int: The row index of the lowest empty cell in this column.
     """
     # TODO: implement
-    pass
-
+    for row in range(0, 6):  # Ensures iteration from bottom to top
+        print(f"Checking row: {row}")  # Debugging line to verify iteration order
+        if board[row][col] == 0:   
+            return (row) # Return the highest open row
+        
+            
 
 def winning_move(board, piece):
     """
@@ -78,8 +84,8 @@ def winning_move(board, piece):
     This requires checking horizontally, vertically, and diagonally.
     """
     # TODO: implement
-    pass
-
+   
+        
 
 def get_valid_locations(board):
     """
