@@ -62,7 +62,30 @@ class DynamicProgramming:
             None
         """
         # TODO: Implement policy evaluation using iterative updates
-        pass
+       
+        for _ in range(self.max_iterations):
+            delta = 0
+            for state in self.all_states:
+                old_value = self.value_function[state]
+
+                #update value based on current policy
+
+                action = self.policy[state]
+                
+                reward, next_state = self._simulate_action(state, action)
+                
+                new_value = reward + self.gamma * self.value_function[new_state]
+                
+                self.value_function[state] = new_value
+
+                delta = max(delta, (old_value - new_value))
+
+            if delta < self.theta:
+                break
+
+                
+    
+        
     
     def policy_improvement(self):
         """
@@ -72,7 +95,37 @@ class DynamicProgramming:
             bool: True if the policy is stable (no changes), False otherwise.
         """
         # TODO: Implement policy improvement by choosing the best action
-        pass
+        policy_stable = True
+        for state in self.all_states:
+            old_action = self.policy[state]
+
+            best_action = None
+            best_value = float('-inf')
+            
+            for action in range(self.env.n_actions):
+
+                reward, next_state = self._simulate_action(state, action)
+                
+                action_value = reward + self.gamma * self.value_function[next_state]
+
+                if action_value > best_value:
+                    best_value = action_value
+                    best_action = action
+
+                self.policy[state] = best_action
+
+                if old_action != best_action:
+                    policy_stable = False
+
+                if policy_stable == True:
+                    break
+
+
+
+                
+
+
+
     
     def policy_iteration(self):
         """
